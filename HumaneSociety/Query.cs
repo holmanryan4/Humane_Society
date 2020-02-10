@@ -173,6 +173,7 @@ namespace HumaneSociety
         internal static void AddAnimal(Animal animal)
         {
             throw new NotImplementedException();
+            
         }
 
         internal static Animal GetAnimalByID(int id)
