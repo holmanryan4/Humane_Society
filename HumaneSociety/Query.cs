@@ -205,6 +205,7 @@ namespace HumaneSociety
         internal static Animal GetAnimalByID(int id)
         {
             return db.Animals.Where(a => a.AnimalId == id).FirstOrDefault();
+
         }
 
         internal static void UpdateAnimal(int animalId, Dictionary<int, string> updates)
@@ -292,34 +293,35 @@ namespace HumaneSociety
                     case 1:
                         return animals = animals.Where(a => a.CategoryId == GetCategoryId(newAnimal.Value));
                     case 2:
-                        
+
                         return animals = animals.Where(a => a.Name == newAnimal.Value);
                     case 3:
-                        
+
                         return animals = animals.Where(a => a.Age == int.Parse(newAnimal.Value));
                     case 4:
                         return animals = animals.Where(a => a.Demeanor == newAnimal.Value);
                     case 5:
                         return animals = animals.Where(a => a.KidFriendly == bool.Parse(newAnimal.Value));
                     case 6:
-                        return animals = animals.Where(a => a.PetFriendly == bool.Parse(newAnimal.Value)); 
+                        return animals = animals.Where(a => a.PetFriendly == bool.Parse(newAnimal.Value));
                     case 7:
                         return animals = animals.Where(animal => animal.Weight == int.Parse(newAnimal.Value));
                     case 8:
-                        return animals = animals.Where(animal => animal.AnimalId == int.Parse(newAnimal.Value)); 
+                        return animals = animals.Where(animal => animal.AnimalId == int.Parse(newAnimal.Value));
                     default:
                         Console.WriteLine("Nope...try again");
                         Console.ReadLine();
                         break;
-                }   
-            }
-            return animals;
+                }
+                
+             }            
         }
          
         // TODO: Misc Animal Thing
         internal static int GetCategoryId(string categoryName)
         {
             return db.Categories.Where(c => c.Name == categoryName).Select(s => s.CategoryId).FirstOrDefault();
+            
         }
         
         internal static Room GetRoom(int animalId)
@@ -359,18 +361,22 @@ namespace HumaneSociety
 
         internal static void RemoveAdoption(int animalId, int clientId)
         {
-            
+            var remove1 = db.Adoptions.Where(a => a.AnimalId == clientId).FirstOrDefault();
+            db.Adoptions.DeleteOnSubmit(remove1);
+            db.SubmitChanges();
         }
 
         // TODO: Shots Stuff
         internal static IQueryable<AnimalShot> GetShots(Animal animal)
         {
             var shots1 = db.AnimalShots.Where(shot => shot.AnimalId == animal.AnimalId);
+            db.SubmitChanges();
             return shots1;
         }
 
         internal static void UpdateShot(string shotName, Animal animal)
         {
+
             AnimalShot shot1 = new AnimalShot();
 
             var newShot = db.Shots.Where(s => s.Name == shotName).Select(n => n.ShotId).Single();
