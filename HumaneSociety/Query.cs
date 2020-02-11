@@ -337,47 +337,55 @@ namespace HumaneSociety
             return animals;
         }
          
-        // TODO: Misc Animal Things
+        // TODO: Misc Animal Thing
         internal static int GetCategoryId(string categoryName)
         {
-            throw new NotImplementedException();
+            return db.Categories.Where(c => c.Name == categoryName).Select(s => s.CategoryId).FirstOrDefault();
         }
         
         internal static Room GetRoom(int animalId)
         {
-            throw new NotImplementedException();
+            return db.Rooms.Where(r => r.RoomNumber == animalId).FirstOrDefault();
         }
         
         internal static int GetDietPlanId(string dietPlanName)
         {
-            throw new NotImplementedException();
+            return db.DietPlans.Where(d => d.Name == dietPlanName).Select(s => s.DietPlanId).FirstOrDefault();
         }
 
         // TODO: Adoption CRUD Operations
         internal static void Adopt(Animal animal, Client client)
         {
-            throw new NotImplementedException();
+            Adoption newAdoption = new Adoption();
+            newAdoption.AnimalId = animal.AnimalId;
+            newAdoption.ClientId = client.ClientId;
+            newAdoption.ApprovalStatus = "pending";
+            newAdoption.AdoptionFee = 50;
+            newAdoption.PaymentCollected = false;
+            db.Adoptions.InsertOnSubmit(newAdoption);
+            db.SubmitChanges();            
         }
 
         internal static IQueryable<Adoption> GetPendingAdoptions()
         {
-            throw new NotImplementedException();
+            return db.Adoptions.Where(a => a.ApprovalStatus == "pending");
         }
 
         internal static void UpdateAdoption(bool isAdopted, Adoption adoption)
         {
-            throw new NotImplementedException();
+            adoption.ApprovalStatus = db.Adoptions.Where(a => a.AnimalId && a.ApprovalStatus == isAdopted).FirstOrDefault();
         }
 
         internal static void RemoveAdoption(int animalId, int clientId)
         {
-            throw new NotImplementedException();
+            
         }
 
         // TODO: Shots Stuff
         internal static IQueryable<AnimalShot> GetShots(Animal animal)
         {
-            throw new NotImplementedException();
+            return db.Animals.Where(s => s.AnimalShots == animal.AnimalShots);
+            
         }
 
         internal static void UpdateShot(string shotName, Animal animal)
