@@ -9,7 +9,6 @@ namespace HumaneSociety
     public static class Query
     {        
         static HumaneSocietyDataContext db;
-        private static object amimal;
 
         static Query()
         {
@@ -193,32 +192,18 @@ namespace HumaneSociety
         // TODO: Animal CRUD Operations
         internal static void AddAnimal(Animal animal)
         {
-
-            if(amimal == null)
-
-            {
-                throw new ArgumentException("animal");
-            }
-            db.Animals.InsertOnSubmit(animal);
-            db.SubmitChanges();
+            throw new NotImplementedException();
             
         }
 
         internal static Animal GetAnimalByID(int id)
         {
-            return db.Animals.Where(a => a.AnimalId == id).FirstOrDefault();
+            throw new NotImplementedException();
         }
 
         internal static void UpdateAnimal(int animalId, Dictionary<int, string> updates)
-        {
-
-            switch (updateAnimal)
-            {
-                case
-            }
-                
-            
-            
+        {            
+            throw new NotImplementedException();
         }
 
         internal static void RemoveAnimal(Animal animal)
@@ -229,7 +214,55 @@ namespace HumaneSociety
         // TODO: Animal Multi-Trait Search
         internal static IQueryable<Animal> SearchForAnimalsByMultipleTraits(Dictionary<int, string> updates) // parameter(s)?
         {
-            throw new NotImplementedException();
+            //Animal animal = new Animal();
+            //animals = IQueryable < Animal >
+            IQueryable<Animal> animals = db.Animals;
+
+            //foreach (KeyValuePair<int, Person> employee in employees) EXAMPLE
+            foreach (KeyValuePair<int, string> newAnimal in updates)
+            {
+                switch (newAnimal.Key)
+                {
+
+                    case 1:
+                        animals = animals.Where(animal => animal.CategoryId == GetCategoryId(newAnimal.Value));
+                        return animals;
+                        break;
+                    case 2:
+                        animals = animals.Where(animal => animal.Name == newAnimal.Value);
+                        return animals;
+                        break;
+                    case 3:
+                        animals = animals.Where(animal => animal.Age == int.Parse(newAnimal.Value));
+                        return animals;
+                        break;
+                    case 4:
+                        animals = animals.Where(animal => animal.Demeanor == newAnimal.Value);
+                        return animals;
+                        break;
+                    case 5:
+                        animals = animals.Where(animal => animal.KidFriendly == bool.Parse(newAnimal.Value));
+                        return animals;
+                        break;
+                    case 6:
+                        animals = animals.Where(animal => animal.PetFriendly == bool.Parse(newAnimal.Value));
+                        return animals;
+                        break;
+                    case 7:
+                        animals = animals.Where(animal => animal.Weight == int.Parse(newAnimal.Value));
+                        return animals;
+                        break;
+                    case 8:
+                        animals = animals.Where(animal => animal.AnimalId == int.Parse(newAnimal.Value));
+                        return animals;
+                        break;
+                    default:
+                        return animals;
+                        break;
+                }
+                
+            }
+            return animals;
         }
          
         // TODO: Misc Animal Things
