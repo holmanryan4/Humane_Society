@@ -9,6 +9,7 @@ namespace HumaneSociety
     public static class Query
     {        
         static HumaneSocietyDataContext db;
+        private static object amimal;
 
         static Query()
         {
@@ -192,18 +193,32 @@ namespace HumaneSociety
         // TODO: Animal CRUD Operations
         internal static void AddAnimal(Animal animal)
         {
-            throw new NotImplementedException();
+
+            if(amimal == null)
+
+            {
+                throw new ArgumentException("animal");
+            }
+            db.Animals.InsertOnSubmit(animal);
+            db.SubmitChanges();
             
         }
 
         internal static Animal GetAnimalByID(int id)
         {
-            throw new NotImplementedException();
+            return db.Animals.Where(a => a.AnimalId == id).FirstOrDefault();
         }
 
         internal static void UpdateAnimal(int animalId, Dictionary<int, string> updates)
-        {            
-            throw new NotImplementedException();
+        {
+
+            switch (updateAnimal)
+            {
+                case
+            }
+                
+            
+            
         }
 
         internal static void RemoveAnimal(Animal animal)
