@@ -218,44 +218,51 @@ namespace HumaneSociety
                     case 1:
 
                         animalId = animalInDatabase.AnimalId;
-                        db.Categories.InsertOnSubmit.animal
-                        return animal;
-
-
-                        animal = animals.Where(animal => animal.CategoryId == GetCategoryId(newAnimal.Value));
-                        return animals;
-                        break;
+                        db.Categories.Where(c => c.CategoryId == animalId).FirstOrDefault();
+                        db.SubmitChanges();
+                        return;
                     case 2:
-                        animals = animals.Where(animal => animal.Name == newAnimal.Value);
-                        return animals;
-                        break;
+                        animalId = animalInDatabase.AnimalId;
+                        db.Animals.Where(a => a.Name == animal.Value).FirstOrDefault();
+                        db.SubmitChanges();
+                        return;
+                       
                     case 3:
-                        animals = animals.Where(animal => animal.Age == int.Parse(newAnimal.Value));
-                        return animals;
-                        break;
+                        animalId = animalInDatabase.AnimalId;
+                        db.Animals.Where(a => a.Age == int.Parse(animal.Value)).FirstOrDefault();
+                        db.SubmitChanges();   
+                        return;
+                        
                     case 4:
-                        animals = animals.Where(animal => animal.Demeanor == newAnimal.Value);
-                        return animals;
-                        break;
+                        animalId = animalInDatabase.AnimalId;
+                        db.Animals.Where(a => a.Demeanor == animal.Value).FirstOrDefault();
+                        db.SubmitChanges();
+                        return;
+                       
                     case 5:
-                        animals = animals.Where(animal => animal.KidFriendly == bool.Parse(newAnimal.Value));
-                        return animals;
-                        break;
+                        animalId = animalInDatabase.AnimalId;
+                        db.Animals.Where(a => a.KidFriendly == bool.Parse(animal.Value)).FirstOrDefault();
+                        db.SubmitChanges();
+                        return;
                     case 6:
-                        animals = animals.Where(animal => animal.PetFriendly == bool.Parse(newAnimal.Value));
-                        return animals;
-                        break;
+                        animalId = animalInDatabase.AnimalId;
+                        db.Animals.Where(a => a.PetFriendly == bool.Parse(animal.Value)).FirstOrDefault();
+                        db.SubmitChanges();
+                        return;
                     case 7:
-                        animals = animals.Where(animal => animal.Weight == int.Parse(newAnimal.Value));
-                        return animals;
-                        break;
+                        animalId = animalInDatabase.AnimalId;
+                        db.Animals.Where(a => a.Weight == int.Parse(animal.Value)).FirstOrDefault();
+                        db.SubmitChanges();
+                        return;
                     case 8:
-                        animals = animals.Where(animal => animal.AnimalId == int.Parse(newAnimal.Value));
-                        return animals;
+                        Console.WriteLine("Thanks for updating the system!");
                         break;
+                        
                     default:
-                        return animals;
-                        break;
+                        Console.WriteLine("Thats not a valid option please choose again!");
+
+                        return;
+                        
                 }
                 
             }
