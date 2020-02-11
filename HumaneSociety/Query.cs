@@ -166,19 +166,25 @@ namespace HumaneSociety
         // TODO: Allow any of the CRUD operations to occur here
         internal static void RunEmployeeQueries(Employee employee, string crudOperation)
         {
+            
             switch (crudOperation)
             {
                 case "create":
-                    employee
+                    //add employee to the database
+                    db.Employees.InsertOnSubmit(employee);
+                    db.SubmitChanges();
                     break;
                 case "read":
-                    employee
+                    db.Employees.GetOriginalEntityState(employee);
+                    db.SubmitChanges();
                     break;
                 case "update":
-                    employee
+                    db.Employees.InsertOnSubmit(employee);
+                    db.SubmitChanges();
                     break;
                 case "delete":
-                    employee
+                    db.Employees.DeleteOnSubmit(employee);
+                    db.SubmitChanges();
                     break;
             }
         }
