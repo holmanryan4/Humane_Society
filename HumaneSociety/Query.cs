@@ -175,7 +175,7 @@ namespace HumaneSociety
                     db.SubmitChanges();
                     break;
                 case "read":
-                    db.Employees.GetOriginalEntityState(employee);
+                    db.Employees.GetOriginalEntityState(employee); //this is not correct
                     db.SubmitChanges();
                     break;
                 case "update":
@@ -216,7 +216,6 @@ namespace HumaneSociety
                 {
 
                     case 1:
-
                         animalId = animalInDatabase.AnimalId;
                         db.Categories.Where(c => c.CategoryId == animalId).FirstOrDefault();
                         db.SubmitChanges();
@@ -226,7 +225,6 @@ namespace HumaneSociety
                         db.Animals.Where(a => a.Name == animal.Value).FirstOrDefault();
                         db.SubmitChanges();
                         return;
-                       
                     case 3:
                         animalId = animalInDatabase.AnimalId;
                         db.Animals.Where(a => a.Age == int.Parse(animal.Value)).FirstOrDefault();
@@ -260,15 +258,9 @@ namespace HumaneSociety
                         
                     default:
                         Console.WriteLine("Thats not a valid option please choose again!");
-
-                        return;
-                        
-                }
-                
+                        return;      
+                }  
             }
-           
-
-
         }
 
         internal static void RemoveAnimal(Animal animal)
@@ -288,51 +280,38 @@ namespace HumaneSociety
         {
             //Animal animal = new Animal();
             //animals = IQueryable < Animal >
-            IQueryable<Animal> animals = db.Animals;
+
 
             //foreach (KeyValuePair<int, Person> employee in employees) EXAMPLE
+            IQueryable<Animal> animals = db.Animals;
             foreach (KeyValuePair<int, string> newAnimal in updates)
             {
                 switch (newAnimal.Key)
                 {
 
                     case 1:
-                        animals = animals.Where(animal => animal.CategoryId == GetCategoryId(newAnimal.Value));
-                        return animals;
-                        break;
+                        return animals = animals.Where(a => a.CategoryId == GetCategoryId(newAnimal.Value));
                     case 2:
-                        animals = animals.Where(animal => animal.Name == newAnimal.Value);
-                        return animals;
-                        break;
+                        
+                        return animals = animals.Where(a => a.Name == newAnimal.Value);
                     case 3:
-                        animals = animals.Where(animal => animal.Age == int.Parse(newAnimal.Value));
-                        return animals;
-                        break;
+                        
+                        return animals = animals.Where(a => a.Age == int.Parse(newAnimal.Value));
                     case 4:
-                        animals = animals.Where(animal => animal.Demeanor == newAnimal.Value);
-                        return animals;
-                        break;
+                        return animals = animals.Where(a => a.Demeanor == newAnimal.Value);
                     case 5:
-                        animals = animals.Where(animal => animal.KidFriendly == bool.Parse(newAnimal.Value));
-                        return animals;
-                        break;
+                        return animals = animals.Where(a => a.KidFriendly == bool.Parse(newAnimal.Value));
                     case 6:
-                        animals = animals.Where(animal => animal.PetFriendly == bool.Parse(newAnimal.Value));
-                        return animals;
-                        break;
+                        return animals = animals.Where(a => a.PetFriendly == bool.Parse(newAnimal.Value)); 
                     case 7:
-                        animals = animals.Where(animal => animal.Weight == int.Parse(newAnimal.Value));
-                        return animals;
-                        break;
+                        return animals = animals.Where(animal => animal.Weight == int.Parse(newAnimal.Value));
                     case 8:
-                        animals = animals.Where(animal => animal.AnimalId == int.Parse(newAnimal.Value));
-                        return animals;
-                        break;
+                        return animals = animals.Where(animal => animal.AnimalId == int.Parse(newAnimal.Value)); 
                     default:
-                        return animals;
+                        Console.WriteLine("Nope...try again");
+                        Console.ReadLine();
                         break;
-                }
-                
+                }   
             }
             return animals;
         }
@@ -386,15 +365,20 @@ namespace HumaneSociety
         // TODO: Shots Stuff
         internal static IQueryable<AnimalShot> GetShots(Animal animal)
         {
-          
             var shots1 = db.AnimalShots.Where(shot => shot.AnimalId == animal.AnimalId);
             return shots1;
-
         }
 
         internal static void UpdateShot(string shotName, Animal animal)
         {
-            throw new NotImplementedException();
+            AnimalShot shot1 = new AnimalShot();
+
+            var newShot = db.Shots.Where(s => s.Name == shotName).Select(n => n.ShotId).Single();
+            shot1.AnimalId = animal.AnimalId;
+            shot1.ShotId = newShot;
+            db.AnimalShots.InsertOnSubmit(shot1);
+            db.SubmitChanges();
+
         }
     }
 }
