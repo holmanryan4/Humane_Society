@@ -214,7 +214,9 @@ namespace HumaneSociety
 
             switch (updateAnimal)
             {
-                case
+                case "1"
+
+
             }
                 
             
