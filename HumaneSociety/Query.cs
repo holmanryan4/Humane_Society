@@ -384,38 +384,30 @@ namespace HumaneSociety
 
         internal static void UpdateAdoption(bool isAdopted, Adoption adoption)
         {
-<<<<<<< HEAD
-            
-
-=======
 
             var adoption1 = db.Adoptions.Where(a => a.AnimalId == adoption.AnimalId).Single();
             adoption1.ApprovalStatus = isAdopted.ToString();
->>>>>>> 4f718192ce11038d78162f4c748fd88d2f9a16b1
         }
 
         internal static void RemoveAdoption(int animalId, int clientId)
         {
-            
+            var remove1 = db.Adoptions.Where(a => a.AnimalId == clientId).FirstOrDefault();
+            db.Adoptions.DeleteOnSubmit(remove1);
+            db.SubmitChanges();
         }
 
         // TODO: Shots Stuff
         internal static IQueryable<AnimalShot> GetShots(Animal animal)
         {
-<<<<<<< HEAD
-           
-=======
-          
+
             var shots1 = db.AnimalShots.Where(shot => shot.AnimalId == animal.AnimalId);
+            db.SubmitChanges();
             return shots1;
 
->>>>>>> 4f718192ce11038d78162f4c748fd88d2f9a16b1
         }
 
         internal static void UpdateShot(string shotName, Animal animal)
         {
-            
-            
            
 
         }
