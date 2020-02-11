@@ -192,18 +192,83 @@ namespace HumaneSociety
         // TODO: Animal CRUD Operations
         internal static void AddAnimal(Animal animal)
         {
-            throw new NotImplementedException();
-            
+            if (animal == null)
+
+            {
+                throw new ArgumentException("animal");
+            }
+            db.Animals.InsertOnSubmit(animal);
+            db.SubmitChanges();
+
         }
 
         internal static Animal GetAnimalByID(int id)
         {
-            throw new NotImplementedException();
+            return db.Animals.Where(a => a.AnimalId == id).FirstOrDefault();
         }
 
         internal static void UpdateAnimal(int animalId, Dictionary<int, string> updates)
-        {            
-            throw new NotImplementedException();
+        {
+            var animalInDatabase = GetAnimalByID(animalId);
+            foreach (KeyValuePair<int, string> animal in updates)
+            {
+                switch (animal.Key)
+                {
+
+                    case 1:
+
+                        animalId = animalInDatabase.AnimalId;
+                        db.Categories.Where(c => c.CategoryId == animalId).FirstOrDefault();
+                        db.SubmitChanges();
+                        return;
+                    case 2:
+                        animalId = animalInDatabase.AnimalId;
+                        db.Animals.Where(a => a.Name == animal.Value).FirstOrDefault();
+                        db.SubmitChanges();
+                        return;
+                       
+                    case 3:
+                        animalId = animalInDatabase.AnimalId;
+                        db.Animals.Where(a => a.Age == int.Parse(animal.Value)).FirstOrDefault();
+                        db.SubmitChanges();   
+                        return;
+                        
+                    case 4:
+                        animalId = animalInDatabase.AnimalId;
+                        db.Animals.Where(a => a.Demeanor == animal.Value).FirstOrDefault();
+                        db.SubmitChanges();
+                        return;
+                       
+                    case 5:
+                        animalId = animalInDatabase.AnimalId;
+                        db.Animals.Where(a => a.KidFriendly == bool.Parse(animal.Value)).FirstOrDefault();
+                        db.SubmitChanges();
+                        return;
+                    case 6:
+                        animalId = animalInDatabase.AnimalId;
+                        db.Animals.Where(a => a.PetFriendly == bool.Parse(animal.Value)).FirstOrDefault();
+                        db.SubmitChanges();
+                        return;
+                    case 7:
+                        animalId = animalInDatabase.AnimalId;
+                        db.Animals.Where(a => a.Weight == int.Parse(animal.Value)).FirstOrDefault();
+                        db.SubmitChanges();
+                        return;
+                    case 8:
+                        Console.WriteLine("Thanks for updating the system!");
+                        break;
+                        
+                    default:
+                        Console.WriteLine("Thats not a valid option please choose again!");
+
+                        return;
+                        
+                }
+                
+            }
+           
+
+
         }
 
         internal static void RemoveAnimal(Animal animal)
