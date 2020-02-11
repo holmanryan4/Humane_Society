@@ -10,7 +10,14 @@ namespace HumaneSociety
     {
         static void Main(string[] args)
         {
-            PointOfEntry.Run();
+            //create a new dictionary
+            Dictionary<int, string> myDict = new Dictionary<int, string>();
+            myDict.Add(1,"otto");
+            myDict.Add(2, "john");
+            myDict.Add(3, "mike");
+            myDict.Add(4, "kim");
+            Query.UpdateAnimal();
+            //PointOfEntry.Run();
         }
     }
 }
